@@ -21,6 +21,8 @@ class ModelSerializerApi(serializers.ModelSerializer):
             raise serializers.ValidationError("número adicional de telefone inválido")
         if ApiAluno.objects.filter(phone_number=value).exists():
             raise serializers.ValidationError("esse número de telefone já está cadastrado no sistema, insira outro")
+        if not value.isdigit():
+            raise serializers.ValidationError("campo de telefone deve conter apenas números sem espaços ou traços")
         return value
     
     def validate_lastname(self, value):
